@@ -34,7 +34,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake", "~> 10.0"
   #gem.add_development_dependency "rgem", "~> 3.0"
 
-  gem.add_dependency "oauth2",     "~> 1.0"
-  gem.add_dependency "omniauth",   "~> 1.2"
-
+  gem.add_runtime_dependency 'omniauth-oauth2', "~> 1.4"
 end
