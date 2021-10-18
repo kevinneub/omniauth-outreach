@@ -2,8 +2,6 @@
 
 This is a completed and tested Outreach strategy using Omniauth Oauth2 and connecting to Outreach's v2 API.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
