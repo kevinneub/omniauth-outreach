@@ -1,19 +1,31 @@
+# frozen_string_literal: true
+
 require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
+    # Omniauth Oauth2 strategy for Outreach v2
     class Outreach < OmniAuth::Strategies::OAuth2
       option :name, 'outreach'
-      option :client_options, site: 'https://api.outreach.io'
+      option :authorize_options, %i[response_type scope]
+      option :client_options, {
+        site:          'https://api.outreach.io',
+        authorize_url: 'https://api.outreach.io/oauth/authorize',
+        token_url:     'https://api.outreach.io/oauth/token'
+      }
+
+      option :access_token_options, {
+        grant_type: 'authorization_code'
+      }
 
       uid do
-        raw_info['meta']['user']['email']
+        raw_info.dig('meta', 'user', 'email').to_s
       end
 
       info do
         {
-          email: raw_info['meta']['user']['email'],
-          api: raw_info['meta']['api']
+          email: raw_info.dig('meta', 'user', 'email').to_s,
+          api:   raw_info.dig('meta', 'api').to_s
         }
       end
 
@@ -24,12 +36,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/1.0/info').parsed
-      end
-
-      # Work-around for https://github.com/intridea/omniauth-oauth2/issues/93.
-      def callback_url
-        options[:redirect_uri] || (full_host + script_name + callback_path)
+        @raw_info ||= JSON.parse(access_token.get('/api/v2').body)
       end
     end
   end
