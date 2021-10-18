@@ -28,7 +28,7 @@ config.omniauth :outreach, <CLIENT_ID>, <CLIENT_SECRET>,
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/omniauth-outreach.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kevinneub/omniauth-outreach.
 
 
 ## License
